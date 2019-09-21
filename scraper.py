@@ -1,10 +1,9 @@
 import csv
 from requests import get
-from googlesearch import search
 from time import sleep
 from os import mkdir, path
 from PyInquirer import prompt
-
+from googlesearch import search
 
 class Scraper():
     'Scraping data based on CSV file'
@@ -45,7 +44,7 @@ class Scraper():
             output = answer['output']
             if answer['output'].find('.csv') < 1:
                 output += '.csv'
-                self.__initializeFileOperation(name, output)
+            self.__initializeFileOperation(name, output)
         else:
             self.__showUrl(name)
 
@@ -63,10 +62,13 @@ class Scraper():
 
     # Sets Journal from CSV file
     def __setJournals(self):
-        with open(self.__file, 'rt') as file:
-            file = csv.reader(file)
-            for journal in file:
-                self.__journals.append(journal[0])
+        try:
+            with open(self.__file, 'rt') as file:
+                file = csv.reader(file)
+                for journal in file:
+                    self.__journals.append(journal[0])
+        except FileNotFoundError:
+            raise
 
     # Print with seperator
     def __printWithSeperator(self, message):
