@@ -79,9 +79,8 @@ class Scraper():
     def __getFormattingUrl(self):
         data = []
         for journal in self.__journals:
-            sleep(5)
             self.__printWithSeperator('Fetching formatting url for ' + journal)
-            for url in search(journal + ' journal formatting', stop=1):
+            for url in search(journal + ' author guidelines', stop=1):
                 data.append({'Journal': journal, 'Url': url})
                 print('Formatting Url for ' + journal + ' is ' + url)
         return data
